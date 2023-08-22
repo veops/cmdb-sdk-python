@@ -1,0 +1,3 @@
+
+class CMDBError(Exception):
+    pass
