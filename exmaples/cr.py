@@ -28,13 +28,22 @@ def add_relation():
 def get_relation():
     opt = Option(url=URL, key=KEY, secret=SECRET)
     cli = get_client(opt)
-    root_id = 2557  # the ci id of book, witch book's book_id==1 
-    resp = cli.get_ci(root_id)
+    book = cli.get_ci(q="_type:book,book_id:1").result[0]
+    resp = cli.get_ci_relation(book["_id"])
     print(resp.result)
 
 
 def delete_relation():
     opt = Option(url=URL, key=KEY, secret=SECRET)
     cli = get_client(opt)
-    resp = cli.delete_ci_relation(cr_id=7)
+    book = cli.get_ci(q="_type:book,book_id:1").result[0]
+    rank = cli.get_ci(q="_type:book,rank_id:1").result[0]
+    resp = cli.delete_ci_relation(src_ci_id=book["_id"], dst_ci_id=rank["_id"])
+    print(resp.message)
+
+
+def delete_relation2():
+    opt = Option(url=URL, key=KEY, secret=SECRET)
+    cli = get_client(opt)
+    resp = cli.delete_ci_relation(cr_id=7)  # assuming 7 is the cr_id
     print(resp.message)

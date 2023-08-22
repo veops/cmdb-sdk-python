@@ -183,7 +183,9 @@ class CIRelationRetrieveRsp(Response):
 @dataclasses.dataclass
 class CIRelationDeleteReq(Request):
     """ci_relation delete requet"""
-    cr_id: int
+    cr_id: Optional[int] = None
+    src_ci_id: Optional[int] = None
+    dst_ci_id: Optional[int] = None
 
     def to_params(self) -> dict:
         return {}

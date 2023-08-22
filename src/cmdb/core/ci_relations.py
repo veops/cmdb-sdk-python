@@ -58,8 +58,14 @@ class CIRelationClient:
         self._check_err(resp)
         return CIRelationRetrieveRsp(**resp)
     
-    def _delete_ci_relation(self, params: CIRelationDeleteReq) -> CIRelationDeleteRsp:
+    def _delete_ci_relation_by_cr_id(self, params: CIRelationDeleteReq) -> CIRelationDeleteRsp:
         url = f"{self.url}/{params.cr_id}"
+        payload = self._build_api_key(url, params.to_params())
+        resp = self.session.delete(url, json=payload).json()
+        return CIRelationDeleteRsp(**resp)
+    
+    def _delete_ci_relation(self, params: CIRelationDeleteReq) -> CIRelationDeleteRsp:
+        url = f"{self.url}/{params.src_ci_id}/{params.dst_ci_id}"
         payload = self._build_api_key(url, params.to_params())
         resp = self.session.delete(url, json=payload).json()
         return CIRelationDeleteRsp(**resp)
@@ -119,15 +125,38 @@ class CIRelationClient:
         params = CIRelationRetrieveReq(root_id, level, reverse, q, fl, facet, count, page, sort, ret_key)
         return self._get_ci_relation(params)
     
-    def delete_ci_relation(self, cr_id: int) -> CIRelationDeleteRsp:
+    def delete_ci_relation(
+            self,
+            *,
+            cr_id: Optional[int] = None,
+            src_ci_id: Optional[int] = None,
+            dst_ci_id: Optional[int] = None,
+        ) -> CIRelationDeleteRsp:
         """
-        delete a ci_relation by its cr id
+        to delete the cr, either the cr_id or a combination of dst_ci_id and src_ci_id can be used
+
+        example:
+
+            1. delete by cr_id
+
+                > client.delete_ci_relation(cr_id=1)
+
+            2. delete by src_ci_id and dst_ci_id
+
+                > client.delete_ci_relation(src_ci_id=1, dst_ci_id=2)
 
         Args:
             cr_id: cr id for the ci_relation want to delete
-        
+            src_ci_id: id of source ci
+            src_ci_id: id of destination ci
+
         Retrurns:
             CMDB delete operation result
         """
-        param = CIRelationDeleteReq(cr_id)
-        return self._delete_ci_relation(param)
+        if cr_id is not None:
+            param = CIRelationDeleteReq(cr_id)
+            return self._delete_ci_relation_by_cr_id(param)
+        elif all({src_ci_id is not None, dst_ci_id is not None}):
+            param = CIRelationDeleteReq(src_ci_id=src_ci_id, dst_ci_id=dst_ci_id)
+            return self._delete_ci_relation(param)
+        raise CMDBError("cr_id should be provided, or both src_ci_id and dst_ci_id should be provided.")

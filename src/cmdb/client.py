@@ -184,17 +184,35 @@ class Client:
         """
         return self.cr.get_ci_relation(root_id, level, reverse, q, fl, facet, count, page, sort, ret_key)
     
-    def delete_ci_relation(self, cr_id: int) -> CIRelationDeleteRsp:
+    def delete_ci_relation(
+            self,
+            *,
+            cr_id: Optional[int] = None,
+            src_ci_id: Optional[int] = None,
+            dst_ci_id: Optional[int] = None,
+    ) -> CIRelationDeleteRsp:
         """
-        delete a ci_relation by its cr id
+        to delete the cr, either the cr_id or a combination of dst_ci_id and src_ci_id can be used
+
+        example:
+
+            1. delete by cr_id
+
+                > client.delete_ci_relation(cr_id=1)
+
+            2. delete by src_ci_id and dst_ci_id
+
+                > client.delete_ci_relation(src_ci_id=1, dst_ci_id=2)
 
         Args:
             cr_id: cr id for the ci_relation want to delete
-        
+            src_ci_id: id of source ci
+            src_ci_id: id of destination ci
+
         Retrurns:
             CMDB delete operation result
         """
-        return self.cr.delete_ci_relation(cr_id)
+        return self.cr.delete_ci_relation(cr_id=cr_id, src_ci_id=src_ci_id, dst_ci_id=dst_ci_id)
 
 
 def get_client(opt: Optional[Option] = None) -> Client:

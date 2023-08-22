@@ -10,9 +10,6 @@ from cmdb.core.ci import CIClient, Option
 from cmdb.core.ci_relations import CIRelationClient
 
 
-CR_ID = None
-
-
 class TestCI:
 
     def setup_method(self) -> None:
@@ -37,8 +34,10 @@ class TestCI:
             "rank_id": 1,
             "rank": 5,
         }
-        self.ci_client.add_ci("book", book)
-        self.ci_client.add_ci("rank", rank)
+        if not self.find_ci(q="_type:book,book_id:1"):
+            self.ci_client.add_ci("book", book)
+        if not self.find_ci(q="_type:rank,rank_id:1"):
+            self.ci_client.add_ci("rank", rank)
 
     def find_ci(self, q: str):
         resp = self.ci_client.get_ci(q=q).result
@@ -50,8 +49,6 @@ class TestCI:
         book = self.find_ci(q="_type:book,book_id:1")
         rank = self.find_ci(q="_type:rank,rank_id:1")
         resp = self.client.add_ci_relation(book["_id"], rank["_id"])
-        global CR_ID
-        CR_ID = resp.cr_id
         print("add result", resp)
 
     def test_get_cli_relation(self):
@@ -59,8 +56,8 @@ class TestCI:
         resp = self.client.get_ci_relation(root_id=book["_id"]).result
         print("get result", resp)
 
-    def test_delete(self):
-        global CR_ID
-        print(CR_ID)
-        resp = self.client.delete_ci_relation(cr_id=CR_ID)
+    def test_delete_relation(self):
+        book = self.find_ci(q="_type:book,book_id:1")
+        rank = self.find_ci(q="_type:rank,rank_id:1")
+        resp = self.client.delete_ci_relation(src_ci_id=book["_id"], dst_ci_id=rank["_id"])
         print("delete result", resp)
