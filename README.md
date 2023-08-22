@@ -19,7 +19,7 @@ build and install
 ## tests
 
 before running tests, please make sure you have created the ci model book and rank,
-them may looks like:
+they may looks like:
 
 ```plain
 book
@@ -34,7 +34,7 @@ rank:
     rank: int, not null,
 ```
 
-and you alse need to form relationship bewteen book and rank, and then you can run tests.
+and you alse need to form relationship between book and rank, and then you can run tests.
 
 ```shell
 > pytest -s

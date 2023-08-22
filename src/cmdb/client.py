@@ -50,7 +50,7 @@ class Client:
             exist_policy: default to reject add new ci if exists, optional value include NEED|REJECT|REPLACE
 
         Retrurns:
-            CMDB create operation reuslt
+            CMDB create operation result
         """
         return self.ci.add_ci(ci_type, attrs, no_attribute_policy, exist_policy)
     
@@ -68,7 +68,7 @@ class Client:
         get ci instance
 
         get target results by search expression
-        for more information, please refrence to veops cmdb guidance [here](https://github.com/veops/cmdb/blob/master/docs/cmdb_api.md).
+        for more information, please reference to veops cmdb guidance [here](https://github.com/veops/cmdb/blob/master/docs/cmdb_api.md).
 
         Args:
             q: search expression, may looks like "_type:Human,name:a"
@@ -110,7 +110,7 @@ class Client:
             no_attribute_policy: default to ignore not existed attributes update operation, optional value include IGNORE|REJECT
 
         Retrurns:
-            CMDB update operation reuslt
+            CMDB update operation result
         """
         return self.ci.update_ci(ci_type, ci_id=ci_id, attrs=attrs, no_attribute_policy=no_attribute_policy, **kwargs)
     
@@ -127,7 +127,7 @@ class Client:
             ci_id: ci id for the ci want to delete
         
         Retrurns:
-            CMDB delete operation reuslt
+            CMDB delete operation result
         """
         return self.ci.delete_ci(ci_id)
     
@@ -144,7 +144,7 @@ class Client:
             src_ci_id: id of destination ci
 
         Retrurns:
-            ci_relation create operation reuslt
+            ci_relation create operation result
         """
         return self.cr.add_ci_relation(src_ci_id, dst_ci_id)
     
@@ -192,7 +192,7 @@ class Client:
             cr_id: cr id for the ci_relation want to delete
         
         Retrurns:
-            CMDB delete operation reuslt
+            CMDB delete operation result
         """
         return self.cr.delete_ci_relation(cr_id)
 

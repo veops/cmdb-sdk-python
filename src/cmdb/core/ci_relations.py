@@ -77,7 +77,7 @@ class CIRelationClient:
             src_ci_id: id of destination ci
 
         Retrurns:
-            ci_relation create operation reuslt
+            ci_relation create operation result
         """
         param = CIRelationCreateReq(src_ci_id, dst_ci_id)
         return self._add_ci_relation(param)
@@ -99,7 +99,7 @@ class CIRelationClient:
         get ci_relation instance
 
         get target relation by root id
-        for more information, please refrence to veops cmdb guidance [here](https://github.com/veops/cmdb/blob/master/docs/cmdb_api.md).
+        for more information, please reference to veops cmdb guidance [here](https://github.com/veops/cmdb/blob/master/docs/cmdb_api.md).
 
         Args:
             root_id: ci id of root node
@@ -127,7 +127,7 @@ class CIRelationClient:
             cr_id: cr id for the ci_relation want to delete
         
         Retrurns:
-            CMDB delete operation reuslt
+            CMDB delete operation result
         """
         param = CIRelationDeleteReq(cr_id)
         return self._delete_ci_relation(param)
