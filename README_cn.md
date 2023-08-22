@@ -65,7 +65,7 @@ CMDB_SECRET=[your secret]
 
 ```python3
 """
-suppose a ci model is Book(id, book_id, book_name, auther)
+suppose a ci model is Book(id, book_id, book_name, author)
 """
 
 import os
@@ -100,7 +100,7 @@ class TestCI:
             "id": 1,
             "book_id": 1,
             "book_name": "平凡的世界",
-            "auther": "路遥",
+            "author": "路遥",
         }
         if self.find_by_name("平凡的世界"):
             return
@@ -110,7 +110,7 @@ class TestCI:
 
     def test_update(self):
         ci = self.find_by_name("平凡的世界")
-        resp = self.client.update_ci("book", ci_id=ci["_id"], attrs={"auther": "yao.lu"})
+        resp = self.client.update_ci("book", ci_id=ci["_id"], attrs={"author": "yao.lu"})
         print("update")
         print(resp)
 
@@ -126,7 +126,7 @@ class TestCI:
 
 ```python3
 """
-suppose a CI model book with field id, name and auther,
+suppose a CI model book with field id, name and author,
 suppose a CI model rank with field rank_id, book_id, rank
 """
 
@@ -157,7 +157,7 @@ class TestCI:
             "id": 1,
             "book_id": 1,
             "book_name": "平凡的世界",
-            "auther": "路遥",
+            "author": "路遥",
         }
         rank = {
             "id": 1,

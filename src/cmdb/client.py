@@ -33,7 +33,7 @@ class Client:
     def add_ci(
             self,
             ci_type: str,
-            attrs: dict = {},
+            attrs: dict,
             no_attribute_policy: NoAttributePolicy = NoAttributePolicy.default(),
             exist_policy: ExistPolicy = ExistPolicy.default(),
         ) -> CICreateRsp:
@@ -45,7 +45,7 @@ class Client:
 
         Args:
             ci_type: ci model type
-            attrs: fields want to update
+            attrs: fields of ci to add
             no_attribute_policy: default to ignore not existed attributes update operation, optional value include IGNORE|REJECT
             exist_policy: default to reject add new ci if exists, optional value include NEED|REJECT|REPLACE
 
@@ -89,7 +89,7 @@ class Client:
             ci_type: str,
             *,
             ci_id: Optional[int] = None,
-            attrs: dict = {},
+            attrs: Optional[dict] = None,
             no_attribute_policy: NoAttributePolicy = NoAttributePolicy.default(),
             **kwargs,
         ) -> CIUpdateRsp:
@@ -106,7 +106,7 @@ class Client:
         Args:
             ci_type: ci model type
             ci_id: keyword agument only, the id of ci
-            attrs: keyword agument only, fields want to update
+            attrs: keyword agument only, fields to update
             no_attribute_policy: default to ignore not existed attributes update operation, optional value include IGNORE|REJECT
 
         Retrurns:
@@ -124,7 +124,7 @@ class Client:
             > client.delete(1)
 
         Args:
-            ci_id: ci id for the ci want to delete
+            ci_id: ci id for the ci to delete
         
         Retrurns:
             CMDB delete operation result

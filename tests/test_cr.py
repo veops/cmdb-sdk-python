@@ -1,5 +1,5 @@
 """
-suppose a CI model book with field id, name and auther,
+suppose a CI model book with field id, name and author,
 suppose a CI model rank with field rank_id, book_id, rank
 """
 
@@ -30,7 +30,7 @@ class TestCI:
             "id": 1,
             "book_id": 1,
             "book_name": "平凡的世界",
-            "auther": "路遥",
+            "author": "路遥",
         }
         rank = {
             "id": 1,
