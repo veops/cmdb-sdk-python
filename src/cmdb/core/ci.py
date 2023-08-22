@@ -97,7 +97,7 @@ class CIClient:
             exist_policy: default to reject add new ci if exists, optional value include NEED|REJECT|REPLACE
 
         Retrurns:
-            CMDB create operation reuslt
+            CMDB create operation result
         """
         param = CICreateReq(ci_type, no_attribute_policy, exist_policy, attrs)
         return self._add_ci(param)
@@ -162,7 +162,7 @@ class CIClient:
             no_attribute_policy: default to ignore not existed attributes update operation, optional value include IGNORE|REJECT
 
         Retrurns:
-            CMDB update operation reuslt
+            CMDB update operation result
         """
         param = CIUpdateReq(ci_type, no_attribute_policy, attrs)
         if not ci_id:
@@ -183,7 +183,7 @@ class CIClient:
             ci_id: ci id for the ci want to delete
         
         Retrurns:
-            CMDB delete operation reuslt
+            CMDB delete operation result
         """
         param = CIDeleteReq(ci_id)
         return self._delete_ci(param)
