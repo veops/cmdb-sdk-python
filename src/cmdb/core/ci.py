@@ -64,7 +64,7 @@ class CIClient:
         else:
             if not params.unique_key.keys():
                 raise CMDBError("if not use ci_id, unique key must in request params")
-            url = self.opt.url
+            url = self.url
         payload = self._build_api_key(url, params.to_params())
         resp = self.session.put(url, json=payload).json()
         self._check_err(resp)
